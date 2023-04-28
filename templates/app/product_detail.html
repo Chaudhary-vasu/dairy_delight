@@ -1,0 +1,69 @@
+{% extends 'app/base.html' %}
+ {% load static %}
+ {% load social_share %}
+ {% block title %}Product-Detail{% endblock title %}
+
+ {% block main-content %}
+
+<div class="container">
+    <div class="row flex justify-content-between">
+
+        <div class="img2 col-lg-5 mt-5">
+            <img src="{{product.product_image.url}}" height="200" width="100" class="image col-xs-6 col-sm-12 
+            col-lg-12 mt-3 text-sm-center" alt="">
+            
+            {% comment %} {% post_to_facebook "New product: {{product.title}} Check it Out!" %}
+            {% post_to_gplus "New Mobile: {{product.title}} Check it Out!" %}
+            {% send_email "New Mobile on mobileStop" "Here is the latest launched Mobile: {{product.title}} Check it Out!" %}
+            {% post_to_reddit "New Mobile: {{product.title}} Check it Out!" %}
+            {% post_to_telegram "New Mobile: {{product.title}} Check it Out!" %}
+            {% post_to_whatsapp "New Mobile: {{product.title}} Check it Out!" %} {% endcomment %}
+
+ 
+  <!-- Share Buttons -->
+  
+  {% comment %} <ul id="floating-share-buttons">
+    <li><a href="#" class="share-facebook"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a></li>
+    <li><a href="#" class="share-pinterest"><i class="fa fa-pinterest fa-2x" aria-hidden="true"></i></a></li>
+    <li><a href="#" class="share-twitter"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a></li>
+    <li><a href="#" class="share-linkedin"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a></li>
+    <li><a href="#" class="share-whatsapp"><i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i></a></li>
+    <li><a href="#" class="share-mail"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i></a></li>
+  </ul> {% endcomment %}
+  
+  <!-- /Share Buttons -->
+  
+        </div>
+
+            <div class="productdetail col-lg-5">
+            <h2 style="font-family:Georgia; font-size:50px;">{{product.title}} </h2>
+            <h5>Rs.{{product.discounted_price}}/-</h5>
+            <small class="text-decoration-line-through text-muted fs-5">
+                <del>Rs.{{product.selling_price}}/-</del> </small>
+<br><br>
+<h4>Product Features:</h4>
+<ul class="fs-5" style="font-family:Rajdhani;">
+    <li> {{product.description}} </li>
+</ul>
+
+    <form action="/add-to-cart" class="d-inline">
+    <input type="hidden" name="product_id" value={{product.id}}>
+    
+    <button type="submit" class="btn btn-primary shadow px-5 py-3">Add to Cart </button>
+    <button type="submit" class="btn btn-warning shadow px-5 py-3 ms-4">Buy Now </button>
+    <!-- <a href="{% url 'show_cart' %}" class="btn btn-warning shadow px-5 py-3 ms-4">Buy Now</a> -->
+</form>
+
+
+{% if wishlist %}
+<a pid="{{product.id}}" class="minus-wishlist btn btn-danger shadow px-4 py-3 ms-3">
+    <i class="fas fa-heart fa-lg"></i></a>
+{% else %}
+<a pid="{{product.id}}" class="plus-wishlist btn btn-success shadow px-4 py-3 ms-3">
+    <i class="fas fa-heart fa-lg"></i></a>
+{% endif %}
+         </div>
+        </div>
+        </div>
+
+{% endblock main-content %}

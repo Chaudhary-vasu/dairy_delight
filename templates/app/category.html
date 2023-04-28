@@ -1,0 +1,28 @@
+{% extends 'app/base.html' %} {% load static %} {% comment %} {% block title %}
+Category {% endblock title %} {% endcomment %}
+ {% block main-content %}
+<div class="container my-5">
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="row">
+        {% for i in product %}
+        <div class="col text-center mb-4">
+          <a href="{% url 'product-detail' i.id %}" class="btn">
+            <div>
+              <img src="{{i.product_image.url}}" width="300px" height="200px" />
+              <div class="fw-bold">{{i.title}}</div>
+              <div class="fw-bold text-danger">
+                Rs.{{i.discounted_price}}/-
+                <small class="fw-light text-decoration-line-through"
+                  >{{i.selling_price}}</small
+                >
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main-content %}

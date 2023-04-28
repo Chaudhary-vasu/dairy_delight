@@ -1,0 +1,35 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block main-content %}
+<center>
+    <div class="container my-5">
+        <div class="row ">
+            <div class="col-sm-10"> 
+                <div class="row">
+                    {% if product %}
+                    {% for i in product %}
+                    <div class="col-sm-4 text-center mb-4 hover-shadow">
+                        <a href="{% url 'product-detail' i.product.id %}" class="btn">
+                            <div>
+                                <img src="{{i.product.product_image.url}}" width="300px" height="200px">
+                                <div class="fw-bold"> {{i.product.title}}</div>
+                                <div class="fw-bold text-danger"> Rs.{{i.product.discounted_price}}/-
+                                    <small class="fw-light text-decoration-line-through">{{i.product.selling_price}}</small>
+                                </div>
+                            </div>
+                    </a>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h1 class="text-center mb-5">Wishlist is Empty</h1>
+                {% endif %}
+        </div>
+        </div>
+    </div>
+    </div>
+    {% comment %} <div class="col-12 mt-3">
+        <a href="{% url 'home' %}" type='button' class="btn btn-danger">Back </a>
+    </div> {% endcomment %}
+</center>
+
+{% endblock main-content %}

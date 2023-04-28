@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <h3>
+            Welcome  <span class="text-capitalize"> {{request.user}} </span></h3>
+            <div class="col-sm-2 border-end">
+                <ul class="list-unstyled">
+                    {% comment %} <li class="d-grid"> 
+                       <a href="#" class="btn btn-primary">Password Changed Done</a> 
+                    </li> {% endcomment %}
+                   </ul>
+            </div>
+            <div class="col-sm-8 offset-sm-1" >
+<h3>Changed Password Successfully!!</h3>
+{% comment %} <div>
+    <iframe src="https://giphy.com/gifs/DefyTVNetwork-duck-dynasty-defytv-pdSncNyYgaH0wqaCqp" width='100' height='200' frameborder='0'
+     class="giphy-embed" allowFullScreen></iframe>
+</div> {% endcomment %}
+
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock main-content %}

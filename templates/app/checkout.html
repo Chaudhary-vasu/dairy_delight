@@ -1,0 +1,97 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container">
+    {%  if messages %}
+    {% for msg in messages %}
+    <div class="alert alert-danger" role="alert">{{msg}}</div>
+    {% endfor %}
+    {% endif %}
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <h4>Order Summary</h4>
+<hr>
+{% for item in cart_items %}
+<div class="card mb-4">
+    <div class="card-body">
+        <img src="{{item.product.product_image.url}}" width="50px" height="40px">
+        <h5>Product: {{item.product.title}}</h5>
+        <p class="fw-bold">Price:{{item.product.discounted_price}}</p>
+        {% comment %} <small class="fw-light text-decoration-line-through">{{item.product.selling_price}}</small> {% endcomment %}
+    </div>
+</div>
+{% endfor %}
+<p class="fw-bold">Total Cost + Rs. 40.00 = {{totalamount}}</p>
+<small>Terms & Conditions:
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore voluptates rem provident dolores et blanditiis repudiandae laborum ad asperiores explicabo, earum ex dolorem, 
+    eveniet vero aspernatur deleniti, unde laboriosam officiis!</small>
+        </div>
+<div class="col-sm-4 offset-sm-1">
+    <h4>Select Shipping Address</h4>
+    <hr>
+    <form method="post" id='myform'>
+        {%   csrf_token  %}
+        {% for addr in address %} 
+        <div class="card">
+            <div class="card-body">
+                <h5>{{addr.name}}</h5>
+                <p>Mobile:{{addr.mobile}}</p>
+                <p>{{addr.locality}}, {{addr.city}},{{addr.state}} - {{addr.zipcode}}</p>
+            </div>
+        </div>
+        <div class="form-check mt-2 mb-5">
+            <input class="form-check-input" type="radio" name="custid" id="custadd{{forloop.counter}}" value="{{addr.id}}">
+            <label class="form-check-label" for="custadd{{forloop.counter}}">Address:{{forloop.counter}}</label>
+        </div>
+        {% endfor %}
+        <div class="form-check mb-3">
+            <label class="form-label" for="totalamount"><strong>Total Amount</strong></label>
+            <input type="number" name="totalamount" class="form-control" value="{{totalamount}}" readonly>
+        </div>
+        <div class="text-end">
+             {% comment %} <div id="paypal-button-container"></div> {% endcomment %}
+            <button id="rzp-button1" type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Pay with Razorpay</button> 
+        </div>
+    </form>
+</div>
+</div>
+</div>
+{% endblock main-content %}
+
+ {% block payment-gateway %}
+ <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+var options = {
+    "key": "rzp_test_YuvetjfkSOQ53f", // Enter the Key ID generated from the Dashboard
+    "amount": "{{razoramount}}", // Amount is in currency subunits. Default is INR so 50000 refers to 50000 paise.
+    "currency": "INR",
+    "name": "Neel Products",
+    "description": "Purchase Products from Neel Dairy",
+    "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response view.
+    "handler": function (response){
+        console.log("success payment gateway")
+        var form=document.getElementById("myform");
+        //alert(form.elements['custid'].value);
+        //alert(response.razorpay_payment_id);
+        //alert(response.razorpay_order_id);
+        //alert(response.razorpay_signature)
+        window.location.href=`http://localhost:8000/paymentdone?order_id=${response.razorpay_order_id}&payment_id=${response.razorpay_payment_id}&cust_id=${form.elements['custid'].value}`
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.description);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    console.log('rzp-button clicked');
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+{% endblock payment-gateway %}

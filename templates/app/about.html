@@ -1,0 +1,100 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+
+{% block banner-slider %}
+  <div
+    id="carouselExampleControlsNoTouching"
+    class="carousel slide"
+    data-bs-touch="false"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="{% static 'images/banner/b1.jpg' %}"
+          class="d-block w-100"
+          alt="banner image1"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="{% static 'images/banner/b2.jpg' %}"
+          class="d-block w-100"
+          alt="banner image2"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="{% static 'images/banner/b3.jpg' %}"
+          class="d-block w-100"
+          alt="banner image3"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="{% static 'images/banner/b4.jpg' %}"
+          class="d-block w-100"
+          alt="banner image4"
+        />
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleControlsNoTouching"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleControlsNoTouching"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  {% endblock banner-slider %} 
+  
+
+{% block main-content %}
+
+<div class="container mt-3">
+    <br>
+    <h2 style="color:purple;" class="text-center"> About Us </h2>
+    <br>
+    <div class="row container">
+        <p class="fs-4 text-center">
+          This is a public limited company which have its registered and the corporate office
+          at Pune city of Maharshtra State of India. 
+          The company was incorporated in the year 2018 and the company was commenced in the year 2020.
+          This is one of the fastest growing public listed company in Pune.
+          We have our branches over different states of India. </p>
+        <p class="fs-4 text-center">
+        Neel Dairy is an exclusive, free business delivering cheddar from drain provided by our own contracted agriculturists. Mozzarella, Pizza Cheese and other cheddar fixing types in new, solidified organizations. Likewise we fabricate Fat Filled Mozzarella and Analog (Vegetable Fat) Cheese.
+        With ages of experience we work intimately with clients over the foodservice, assembling and retail areas giving marked and claim mark arrangements. We have adaptable, effective and very much put assembling locales in Dallas and New Jersey.
+        We take pride in our dairy legacy and our job in creating sound and energizing items for individuals to appreciate. We ensure the most noteworthy quality items, specialized affirmation and an emphasis on the most astounding gauges of administration.
+    
+        </p>
+    </div>
+
+    <br><br>
+
+    <h2 style="color:purple;" class="text-center">Mission</h2>
+    <br>
+    <div class="row container">
+        <p class="fs-4 text-center">
+            To embrace the right technology to delight our customers
+            Empowering the farmer communities through our unique 'Relationship Farming'
+            Model.
+            To antipicate, understand and to respond to our Cutsomers' needs by creating
+            high-quality products and making them available through innovatives and
+            convenient channels.
+        </p>
+    </div>
+</div>
+<br><br><br>
+{% endblock main-content %}

@@ -1,0 +1,58 @@
+{% extends 'app/base.html' %}
+{% load static %} 
+{% block title %}Address{% endblock title %} 
+{% block main-content %}
+
+<div class="container my-5">
+  <div class="row">
+    <h3>Welcome <span class="text-capitalize"> {{request.user.name}} </span></h3>
+
+    <div class="col-sm-2 border-end">
+      <ul class="list-unstyled">
+        <li class="d-grid">
+        <a href="{% url 'profile' %}" class="btn btn-primary">Add address</a>
+        </li>
+        <br />
+        <li class="d-grid">
+        <a href="{% url 'address' %}" class="btn btn-primary">Show Profile</a> 
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-sm-8 offset-sm-1">
+      <div class="row">
+        {% for addr in address_obj %}
+        <div class="col-sm-6">
+          <div class="card m-2">
+            <div class="card-body">
+              <h3>Address {{forloop.counter}}</h3>
+              <p>Name:{{addr.name}}</p>
+              <p>Locality:{{addr.locality}}</p>
+              <p>Mobile:{{addr.mobile}}</p>
+              <p>City:{{addr.city}}</p>
+              <p>State:{{addr.state}}</p>
+              <p>Zipcode:{{addr.zipcode}}</p>
+
+              <p class="text-center">
+                <a
+                  href="{% url 'update_address' pk=addr.id %}"
+                  type="button"
+                  class="btn btn-success"
+                  >Update</a>
+
+                  <a
+                  href="{% url 'delete_address' pk=addr.id %}"
+                  type="button"
+                  class="btn btn-danger"
+                  >Delete</a>  
+                </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock main-content %}
